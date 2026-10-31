@@ -1,39 +1,41 @@
 <?php
+$message = "";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = trim($_POST["name"] ?? "");
     $email = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
     if ($name === "" || mb_strlen($name) > 100) {
-        echo "Please enter a name of up to 100 characters.";
+        $message = "Please enter a name of up to 100 characters.";
     } elseif (
         !filter_var($email, FILTER_VALIDATE_EMAIL)
         || strlen($email) > 254
     ) {
-        echo "Please enter a valid email address.";
+        $message = "Please enter a valid email address.";
     } elseif (strlen($password) < 8) {
-        echo "Your password must contain at least 8 characters.";
+        $message = "Your password must contain at least 8 characters.";
     } else {
-        require "db.php";
+        require __DIR__ . "/db.php";
 
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         $statement = $connection->prepare(
             "INSERT INTO users (name, email, password_hash)
-            VALUES (?, ?, ?)"
+             VALUES (?, ?, ?)"
         );
 
         $statement->bind_param("sss", $name, $email, $password_hash);
 
         try {
             $statement->execute();
-            echo "Account created successfully!";
+            $message = "Account created successfully!";
         } catch (mysqli_sql_exception $error) {
             if ($error->getCode() === 1062) {
-                echo "This email address is already registered.";
+                $message = "This email address is already registered.";
             } else {
                 error_log($error->getMessage());
-                echo "Unable to create your account. Please try again.";
+                $message = "Unable to create your account. Please try again.";
             }
         }
 
@@ -41,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,16 +50,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Sign Up | Student Task Board</title>
 </head>
 <body>
-    <nav>
-        <a href="index.php">Home</a> |
-        <a href="tasks.php">Browse Tasks</a> |
-        <a href="signup.php">Sign Up</a> |
-        <a href="login.php">Login</a>
-    </nav>
+    <?php require __DIR__ . "/nav.php"; ?>
 
     <h1>Create an Account</h1>
 
     <form method="post" action="signup.php">
+        <?php if ($message !== ""): ?>
+            <p role="status">
+                <?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?>
+            </p>
+        <?php endif; ?>
+
         <p>
             <label for="name">Full name</label><br>
             <input type="text" id="name" name="name"
