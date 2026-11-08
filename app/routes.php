@@ -15,4 +15,13 @@ return [
     "/logout" => [
         "POST" => "processLogout",
     ],
+    "/tasks" => [
+        "GET" => "showTasks",
+    ],
+    "/tasks/show" => [
+        "GET" => "showTask",
+    ],
+    "/tasks/mine" => [
+        "GET" => "showMyTasks",
+    ],
 ];

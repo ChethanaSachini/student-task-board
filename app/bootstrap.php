@@ -7,3 +7,4 @@ if (empty($_SESSION["csrf_token"])) {
 
 require_once __DIR__ . "/Controllers/HomeController.php";
 require_once __DIR__ . "/Controllers/AuthController.php";
+require_once __DIR__ . "/Controllers/TaskController.php";
