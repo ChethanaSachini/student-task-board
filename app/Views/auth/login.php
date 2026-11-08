@@ -10,6 +10,12 @@
     <h1>Login</h1>
 
     <form method="post" action="login.php">
+        <input type="hidden" name="csrf_token"
+            value="<?= htmlspecialchars(
+                $_SESSION["csrf_token"],
+                ENT_QUOTES,
+                "UTF-8"
+            ) ?>">
         <?php if ($message !== ""): ?>
             <p role="status">
                 <?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?>

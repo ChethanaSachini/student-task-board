@@ -1,7 +1,4 @@
 <?php
-session_start();
-if (empty($_SESSION["csrf_token"])) {
-    $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
-}
+$routePath = "/";
 
-require __DIR__ . "/app/Views/home/index.php";
+require __DIR__ . "/public/index.php";
