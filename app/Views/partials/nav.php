@@ -3,7 +3,8 @@
     <a href="tasks.php">Browse Tasks</a> |
     <?php if (isset($_SESSION["user_id"])): ?>
         <a href="create_task.php">Post Task</a> |
-        <a href="my_tasks.php">My Tasks</a>
+        <a href="my_tasks.php">My Tasks</a> |
+        <a href="my_applications.php">My Applications</a>
         <form method="post" action="logout.php">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars(

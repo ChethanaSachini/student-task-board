@@ -471,6 +471,7 @@ function showTask()
     $task = null;
     $message = "";
     $isExpired = false;
+    $existingApplication = null;
 
     if (!is_string($taskId)) {
         $taskId = false;
@@ -496,6 +497,10 @@ function showTask()
             } else {
                 $today = new DateTimeImmutable("today", new DateTimeZone("Asia/Colombo"));
                 $isExpired = $task["deadline"] < $today->format("Y-m-d");
+                if (isset($_SESSION["user_id"]) && (int) $_SESSION["user_id"] !== (int) $task["user_id"]) {
+                    require_once __DIR__ . "/../Models/ApplicationModel.php";
+                    $existingApplication = findApplicationForTaskAndUser($connection, $taskId, $_SESSION["user_id"]);
+                }
             }
         } catch (mysqli_sql_exception $error) {
             error_log($error->getMessage());

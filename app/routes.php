@@ -36,4 +36,14 @@ return [
         "GET" => "showDeleteTask",
         "POST" => "processDeleteTask",
     ],
+    "/applications/mine" => [
+        "GET" => "showMyApplications",
+    ],
+    "/applications/create" => [
+        "GET" => "showApplicationForm",
+        "POST" => "processCreateApplication",
+    ],
+    "/applications/task" => [
+        "GET" => "showTaskApplications",
+    ],
 ];
