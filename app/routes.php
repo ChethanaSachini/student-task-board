@@ -18,6 +18,10 @@ return [
     "/tasks" => [
         "GET" => "showTasks",
     ],
+    "/tasks/create" => [
+        "GET" => "showCreateTask",
+        "POST" => "processCreateTask",
+    ],
     "/tasks/show" => [
         "GET" => "showTask",
     ],

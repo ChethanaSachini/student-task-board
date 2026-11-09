@@ -12,6 +12,132 @@ function getTaskCategories()
     ];
 }
 
+function showCreateTask()
+{
+    if (empty($_SESSION["user_id"])) {
+        header("Location: login.php");
+        exit;
+    }
+
+    $categories = getTaskCategories();
+    $today = new DateTimeImmutable("today", new DateTimeZone("Asia/Colombo"));
+    $minimumDeadline = $today->format("Y-m-d");
+    $values = [
+        "title" => "",
+        "description" => "",
+        "category" => "",
+        "deadline" => "",
+        "reward" => "",
+    ];
+    $errors = [];
+
+    require __DIR__ . "/../Views/tasks/create.php";
+}
+
+function processCreateTask()
+{
+    if (empty($_SESSION["user_id"])) {
+        header("Location: login.php");
+        exit;
+    }
+
+    $token = $_POST["csrf_token"] ?? "";
+    if (
+        !is_string($token)
+        || empty($_SESSION["csrf_token"])
+        || !hash_equals($_SESSION["csrf_token"], $token)
+    ) {
+        http_response_code(403);
+        exit("Invalid request. Return to the task creation page and try again.");
+    }
+
+    $categories = getTaskCategories();
+    $timezone = new DateTimeZone("Asia/Colombo");
+    $today = new DateTimeImmutable("today", $timezone);
+    $minimumDeadline = $today->format("Y-m-d");
+    $values = [
+        "title" => "",
+        "description" => "",
+        "category" => "",
+        "deadline" => "",
+        "reward" => "",
+    ];
+    $errors = [];
+
+    foreach ($values as $field => $value) {
+        $submittedValue = $_POST[$field] ?? "";
+        if (!is_string($submittedValue)) {
+            http_response_code(400);
+            exit("Invalid form data. Please enter text values in the task fields.");
+        }
+        $values[$field] = trim($submittedValue);
+    }
+
+    if ($values["title"] === "" || mb_strlen($values["title"]) > 150) {
+        $errors[] = "Please enter a title of up to 150 characters.";
+    }
+
+    if ($values["description"] === "" || mb_strlen($values["description"]) > 5000) {
+        $errors[] = "Please enter a description of up to 5,000 characters.";
+    }
+
+    if (!in_array($values["category"], $categories, true)) {
+        $errors[] = "Please select a valid task category.";
+    }
+
+    $deadline = false;
+    if (preg_match('/\A[0-9]{4}-[0-9]{2}-[0-9]{2}\z/', $values["deadline"])) {
+        $deadline = DateTimeImmutable::createFromFormat("!Y-m-d", $values["deadline"], $timezone);
+    }
+
+    // Comparing the formatted date also rejects impossible dates such as February 30.
+    if (!$deadline || $deadline->format("Y-m-d") !== $values["deadline"]) {
+        $errors[] = "Please enter a valid application deadline.";
+    } elseif ($deadline < $today) {
+        $errors[] = "The application deadline must be today or a later date in Sri Lanka.";
+    }
+
+    $reward = null;
+    if ($values["reward"] !== "") {
+        if (!preg_match('/\A[0-9]{1,8}(?:\.[0-9]{1,2})?\z/', $values["reward"])) {
+            $errors[] = "Enter a reward from LKR 0.00 to LKR 99,999,999.99 with no more than two decimal places, or leave it blank.";
+        } else {
+            $rewardParts = explode(".", $values["reward"]);
+            $reward = $rewardParts[0] . "." . str_pad($rewardParts[1] ?? "", 2, "0");
+        }
+    }
+
+    if (empty($errors)) {
+        try {
+            require __DIR__ . "/../../db.php";
+            require_once __DIR__ . "/../Models/TaskModel.php";
+
+            $taskId = createTask(
+                $connection,
+                $_SESSION["user_id"],
+                $values["title"],
+                $values["description"],
+                $values["category"],
+                $values["deadline"],
+                $reward
+            );
+        } catch (mysqli_sql_exception $error) {
+            error_log($error->getMessage());
+            http_response_code(503);
+            $errors[] = "Unable to create your task. Please try again later.";
+        }
+
+        if (empty($errors)) {
+            header("Location: task.php?id=" . $taskId, true, 303);
+            exit;
+        }
+    } else {
+        http_response_code(422);
+    }
+
+    require __DIR__ . "/../Views/tasks/create.php";
+}
+
 function showTask()
 {
     $taskId = $_GET["id"] ?? "";
