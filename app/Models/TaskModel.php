@@ -17,10 +17,95 @@ function createTask($connection, $userId, $title, $description, $category, $dead
     }
 }
 
+function findTaskForUpdate($connection, $taskId)
+{
+    $statement = $connection->prepare(
+        "SELECT id, user_id, title, description, category, deadline, reward
+         FROM tasks
+         WHERE id = ?
+         FOR UPDATE"
+    );
+    $statement->bind_param("i", $taskId);
+
+    try {
+        $statement->execute();
+        return $statement->get_result()->fetch_assoc();
+    } finally {
+        $statement->close();
+    }
+}
+
+function deleteTask($connection, $taskId, $userId)
+{
+    $statement = $connection->prepare(
+        "DELETE FROM tasks WHERE id = ? AND user_id = ?"
+    );
+    $statement->bind_param("ii", $taskId, $userId);
+
+    try {
+        $statement->execute();
+        return $statement->affected_rows;
+    } finally {
+        $statement->close();
+    }
+}
+
+function getTaskApplicationCount($connection, $taskId)
+{
+    $statement = $connection->prepare(
+        "SELECT COUNT(*) AS application_count FROM applications WHERE task_id = ?"
+    );
+    $statement->bind_param("i", $taskId);
+
+    try {
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return (int) $result["application_count"];
+    } finally {
+        $statement->close();
+    }
+}
+
+function taskHasApplications($connection, $taskId)
+{
+    $statement = $connection->prepare(
+        "SELECT id FROM applications
+         WHERE task_id = ?
+         LIMIT 1
+         LOCK IN SHARE MODE"
+    );
+    $statement->bind_param("i", $taskId);
+
+    try {
+        $statement->execute();
+        // A locking read checks current rows instead of an older transaction snapshot.
+        return $statement->get_result()->fetch_assoc() !== null;
+    } finally {
+        $statement->close();
+    }
+}
+
+function updateTask($connection, $taskId, $userId, $title, $description, $category, $deadline, $reward)
+{
+    $statement = $connection->prepare(
+        "UPDATE tasks
+         SET title = ?, description = ?, category = ?, deadline = ?, reward = ?
+         WHERE id = ? AND user_id = ?"
+    );
+    $statement->bind_param("sssssii", $title, $description, $category, $deadline, $reward, $taskId, $userId);
+
+    try {
+        $statement->execute();
+        return $statement->affected_rows;
+    } finally {
+        $statement->close();
+    }
+}
+
 function findTaskById($connection, $taskId)
 {
     $statement = $connection->prepare(
-        "SELECT tasks.id, tasks.title, tasks.description, tasks.category,
+        "SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.category,
                 tasks.deadline, tasks.reward, tasks.created_at,
                 users.name AS poster_name
          FROM tasks

@@ -9,6 +9,10 @@
 
     <h1>My Tasks</h1>
 
+    <?php if ($successMessage !== ""): ?>
+        <p role="status"><?= htmlspecialchars($successMessage, ENT_QUOTES, "UTF-8") ?></p>
+    <?php endif; ?>
+
     <?php if ($message !== ""): ?>
         <p role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php elseif (empty($tasks)): ?>
@@ -21,6 +25,7 @@
                     <th scope="col">Category</th>
                     <th scope="col">Deadline</th>
                     <th scope="col">Reward</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +49,10 @@
                             <?php else: ?>
                                 LKR <?= number_format((float) $task["reward"], 2) ?>
                             <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="edit_task.php?id=<?= (int) $task["id"] ?>">Edit</a> |
+                            <a href="delete_task.php?id=<?= (int) $task["id"] ?>">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

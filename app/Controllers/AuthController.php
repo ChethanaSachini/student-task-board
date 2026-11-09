@@ -2,18 +2,33 @@
 
 function showSignup()
 {
+    if (isset($_SESSION["user_id"])) {
+        header("Location: index.php");
+        exit;
+    }
+
     $message = "";
     require __DIR__ . "/../Views/auth/signup.php";
 }
 
 function showLogin()
 {
+    if (isset($_SESSION["user_id"])) {
+        header("Location: index.php");
+        exit;
+    }
+
     $message = "";
     require __DIR__ . "/../Views/auth/login.php";
 }
 
 function processLogin()
 {
+    if (isset($_SESSION["user_id"])) {
+        header("Location: index.php", true, 303);
+        exit;
+    }
+
     $token = $_POST["csrf_token"] ?? "";
 
     if (
@@ -86,6 +101,11 @@ function processLogout()
 
 function processSignup()
 {
+    if (isset($_SESSION["user_id"])) {
+        header("Location: index.php", true, 303);
+        exit;
+    }
+
     $token = $_POST["csrf_token"] ?? "";
 
     if (

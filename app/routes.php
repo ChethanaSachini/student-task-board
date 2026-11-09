@@ -28,4 +28,12 @@ return [
     "/tasks/mine" => [
         "GET" => "showMyTasks",
     ],
+    "/tasks/edit" => [
+        "GET" => "showEditTask",
+        "POST" => "processEditTask",
+    ],
+    "/tasks/delete" => [
+        "GET" => "showDeleteTask",
+        "POST" => "processDeleteTask",
+    ],
 ];

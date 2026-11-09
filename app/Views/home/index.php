@@ -22,16 +22,5 @@
     <?php else: ?>
         <p>Please log in to manage your tasks.</p>
     <?php endif; ?>
-    <?php if (isset($_SESSION["user_id"])): ?>
-        <form method="post" action="logout.php">
-            <input type="hidden" name="csrf_token"
-                value="<?= htmlspecialchars(
-                    $_SESSION["csrf_token"],
-                    ENT_QUOTES,
-                    "UTF-8"
-                ) ?>">
-            <button type="submit">Logout</button>
-        </form>
-    <?php endif; ?>
 </body>
 </html>

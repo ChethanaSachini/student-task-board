@@ -40,6 +40,10 @@
             <dt>Created</dt>
             <dd><?= htmlspecialchars($task["created_at"], ENT_QUOTES, "UTF-8") ?></dd>
         </dl>
+        <?php if (isset($_SESSION["user_id"]) && (int) $_SESSION["user_id"] === (int) $task["user_id"]): ?>
+            <p><a href="edit_task.php?id=<?= (int) $task["id"] ?>">Edit Task</a></p>
+            <p><a href="delete_task.php?id=<?= (int) $task["id"] ?>">Delete Task</a></p>
+        <?php endif; ?>
     <?php endif; ?>
 
     <p><a href="tasks.php">Back to Browse Tasks</a></p>
