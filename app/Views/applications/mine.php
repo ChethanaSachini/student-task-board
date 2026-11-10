@@ -28,6 +28,7 @@
                     <th scope="col">Your message</th>
                     <th scope="col">Submitted</th>
                     <th scope="col">Updated</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +56,10 @@
                         <td><?= nl2br(htmlspecialchars($application["message"], ENT_QUOTES, "UTF-8")) ?></td>
                         <td><?= htmlspecialchars($application["created_at"], ENT_QUOTES, "UTF-8") ?></td>
                         <td><?= htmlspecialchars($application["updated_at"], ENT_QUOTES, "UTF-8") ?></td>
+                        <td>
+                            <a href="edit_application.php?id=<?= (int) $application["id"] ?>">Edit Message</a> |
+                            <a href="withdraw_application.php?id=<?= (int) $application["id"] ?>">Withdraw</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

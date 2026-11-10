@@ -1,5 +1,55 @@
 <?php
 
+function deleteApplication($connection, $applicationId, $userId)
+{
+    $statement = $connection->prepare(
+        "DELETE FROM applications WHERE id = ? AND user_id = ?"
+    );
+    $statement->bind_param("ii", $applicationId, $userId);
+
+    try {
+        $statement->execute();
+        return $statement->affected_rows;
+    } finally {
+        $statement->close();
+    }
+}
+
+function updateApplicationMessage($connection, $applicationId, $userId, $message)
+{
+    $statement = $connection->prepare(
+        "UPDATE applications SET message = ? WHERE id = ? AND user_id = ?"
+    );
+    $statement->bind_param("sii", $message, $applicationId, $userId);
+
+    try {
+        $statement->execute();
+        return $statement->affected_rows;
+    } finally {
+        $statement->close();
+    }
+}
+
+function findApplicationByIdAndUser($connection, $applicationId, $userId)
+{
+    $statement = $connection->prepare(
+        "SELECT applications.id, applications.task_id, applications.message,
+                applications.created_at, applications.updated_at,
+                tasks.title, tasks.deadline
+         FROM applications
+         INNER JOIN tasks ON applications.task_id = tasks.id
+         WHERE applications.id = ? AND applications.user_id = ?"
+    );
+    $statement->bind_param("ii", $applicationId, $userId);
+
+    try {
+        $statement->execute();
+        return $statement->get_result()->fetch_assoc();
+    } finally {
+        $statement->close();
+    }
+}
+
 function createApplication($connection, $taskId, $userId, $message)
 {
     $statement = $connection->prepare(

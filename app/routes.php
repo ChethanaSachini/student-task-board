@@ -39,6 +39,14 @@ return [
     "/applications/mine" => [
         "GET" => "showMyApplications",
     ],
+    "/applications/edit" => [
+        "GET" => "showEditApplication",
+        "POST" => "processEditApplication",
+    ],
+    "/applications/withdraw" => [
+        "GET" => "showWithdrawApplication",
+        "POST" => "processWithdrawApplication",
+    ],
     "/applications/create" => [
         "GET" => "showApplicationForm",
         "POST" => "processCreateApplication",
