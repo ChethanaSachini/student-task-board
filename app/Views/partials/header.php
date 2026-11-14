@@ -10,14 +10,15 @@
     <header class="site-header">
         <div class="container header-inner">
             <a class="site-name" href="index.php">
-                <svg class="site-logo" width="44" height="44" viewBox="0 0 48 48"
-                    fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"
+                <svg class="site-logo" width="58" height="48" viewBox="0 0 58 48"
+                    fill="currentColor"
                     aria-hidden="true" focusable="false">
-                    <path d="M24 4 44 14 24 24 4 14Z" />
-                    <path d="m12 20-8 4 20 10 20-10-8-4" />
-                    <path d="m12 30-8 4 20 10 20-10-8-4" />
+                    <path d="M29 3 57 16 29 29 1 16Z" />
+                    <path d="M13 25v12c9 8 23 8 32 0V25l-16 7Z" />
+                    <path d="M53 18v17" fill="none" stroke="currentColor" stroke-width="3" />
+                    <circle cx="53" cy="36" r="3" />
                 </svg>
-                <span>Student Task Board</span>
+                <span>Student<br>Task Board</span>
             </a>
             <?php require __DIR__ . "/nav.php"; ?>
         </div>

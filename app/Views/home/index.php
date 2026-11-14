@@ -4,61 +4,31 @@ $activePage = "home";
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="home-content">
-    <svg class="home-waves" viewBox="0 0 900 500" preserveAspectRatio="none"
-        aria-hidden="true" focusable="false">
-        <path fill="#E4EAD6" d="M0 500C170 350 245 440 430 300S720 80 900 45V500Z" />
-        <path fill="#D9E3CD" d="M70 500C245 395 330 475 525 370S760 250 900 270V500Z" />
-    </svg>
-    <div class="container">
-    <p class="home-eyebrow">A student-to-student task platform</p>
-    <?php if (isset($_SESSION["user_id"])): ?>
-        <p class="welcome">
-            Welcome back,
-            <?= htmlspecialchars(
-                $_SESSION["user_name"],
-                ENT_QUOTES,
-                "UTF-8"
-            ) ?>!
-        </p>
-    <?php endif; ?>
+<section class="home-hero" aria-labelledby="hero-title">
+    <div class="container hero-inner">
+        <div class="hero-copy">
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <p class="hero-welcome">Welcome back, <?= htmlspecialchars($_SESSION["user_name"], ENT_QUOTES, "UTF-8") ?>!</p>
+            <?php endif; ?>
 
-    <h1>Find a Task or <span>Post Your Own</span></h1>
-    <p class="home-description">Connect with fellow students to get help with small tasks or contribute your skills.</p>
+            <h1 id="hero-title">Get Tasks Done <span>Together<svg class="hero-spark" width="40" height="58" viewBox="0 0 40 58" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M5 15 20 5M8 29l26 1M5 43l15 12" /></svg></span></h1>
+            <p class="hero-description" id="home-about">A simple task board for university students to post tasks, find opportunities and collaborate with peers.</p>
 
-    <div class="home-actions">
-        <a class="button" href="tasks.php">
-            <svg class="button-icon" width="28" height="28" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                aria-hidden="true" focusable="false">
-                <circle cx="10" cy="10" r="7" />
-                <path d="m15 15 6 6" />
-            </svg>
-            Browse Tasks
-        </a>
-        <?php if (isset($_SESSION["user_id"])): ?>
-            <a class="button button-secondary" href="create_task.php">
-                <svg class="button-icon" width="28" height="28" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    aria-hidden="true" focusable="false">
-                    <rect x="3" y="3" width="18" height="18" rx="4" />
-                    <path d="M12 7v10M7 12h10" />
-                </svg>
-                Post Task
-            </a>
-        <?php else: ?>
-            <a class="button button-secondary" href="signup.php">
-                <svg class="button-icon" width="28" height="28" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    aria-hidden="true" focusable="false">
-                    <circle cx="9" cy="6" r="4" />
-                    <path d="M2 21v-2a7 7 0 0 1 12-5M19 13v8M15 17h8" />
-                </svg>
-                Create an Account
-            </a>
-        <?php endif; ?>
+            <div class="hero-actions">
+                <a class="hero-button" href="<?= isset($_SESSION["user_id"]) ? 'create_task.php' : 'signup.php' ?>">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" /></svg>
+                    <?= isset($_SESSION["user_id"]) ? 'Post a Task' : 'Sign Up to Post' ?>
+                </a>
+                <a class="hero-button hero-button-secondary" href="tasks.php">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="6.5" /><path d="m15 15 5 5" /></svg>
+                    Browse Tasks
+                </a>
+            </div>
+        </div>
     </div>
-    </div>
+    <img class="hero-illustration" src="public/assets/images/home-student.png"
+        width="1536" height="1024" alt="University student working at a laptop beside books and plants in a sunlit study space."
+        fetchpriority="high">
 </section>
 
 <section class="how-it-works" aria-labelledby="how-it-works-title">
