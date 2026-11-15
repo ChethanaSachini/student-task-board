@@ -102,6 +102,57 @@ require __DIR__ . "/../partials/header.php";
     </div>
 </section>
 
+<section class="recent-tasks" aria-labelledby="recent-tasks-title">
+    <div class="container">
+        <div class="recent-tasks-heading">
+            <h2 id="recent-tasks-title">Recent Tasks</h2>
+            <a class="recent-tasks-all" href="tasks.php">
+                View All Tasks
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
+            </a>
+        </div>
+
+        <?php // Stage 4 will supply real task data from the controller. ?>
+        <?php if (empty($recentTasks)): ?>
+            <div class="recent-tasks-empty">
+                <h3>Looking for a task?</h3>
+                <p>Browse all tasks to find opportunities.</p>
+            </div>
+        <?php else: ?>
+            <div class="recent-task-grid">
+                <?php foreach (array_slice($recentTasks, 0, 3) as $task): ?>
+                    <?php
+                    // Shorten only the preview; the task detail page keeps the full description.
+                    $descriptionPreview = trim($task["description"]);
+                    if (mb_strlen($descriptionPreview) > 140) {
+                        $descriptionPreview = mb_substr($descriptionPreview, 0, 140) . "…";
+                    }
+                    ?>
+                    <article class="recent-task-card">
+                        <span class="recent-task-category"><?= htmlspecialchars($task["category"], ENT_QUOTES, "UTF-8") ?></span>
+                        <h3>
+                            <a href="task.php?id=<?= (int) $task["id"] ?>"><?= htmlspecialchars($task["title"], ENT_QUOTES, "UTF-8") ?></a>
+                        </h3>
+                        <p class="recent-task-description"><?= htmlspecialchars($descriptionPreview, ENT_QUOTES, "UTF-8") ?></p>
+                        <div class="recent-task-meta">
+                            <span>
+                                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M7 3v4m10-4v4M3 11h18" /></svg>
+                                <span>Due <time datetime="<?= htmlspecialchars($task["deadline"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($task["deadline"], ENT_QUOTES, "UTF-8") ?></time></span>
+                            </span>
+                            <?php if (isset($task["application_count"])): ?>
+                                <span>
+                                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="7" r="4" /><path d="M2 21v-2a7 7 0 0 1 14 0v2ZM17 3a4 4 0 0 1 0 8m1 4a6 6 0 0 1 4 6" /></svg>
+                                    <span><?= (int) $task["application_count"] ?> <?= (int) $task["application_count"] === 1 ? "applicant" : "applicants" ?></span>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
 <section class="home-about" id="home-about" aria-labelledby="home-about-title">
     <div class="container">
         <h2 id="home-about-title">About Student Task Board</h2>

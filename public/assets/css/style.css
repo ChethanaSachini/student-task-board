@@ -339,6 +339,125 @@ main.container {
     line-height: 1.45;
 }
 
+/* Recent task previews use the same purple accents as the hero. */
+.recent-tasks {
+    padding: 24px 0 56px;
+    background: #FFFCFD;
+    color: #211032;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.recent-tasks-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.recent-tasks h2 {
+    margin: 0;
+    color: #1A082B;
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.recent-tasks h2::after {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 3px;
+    margin-top: 10px;
+    border-radius: 50%;
+    background: #8F43A7;
+}
+
+.recent-tasks-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    color: #652080;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.recent-tasks-all svg { flex-shrink: 0; }
+.recent-tasks-all:hover { text-decoration: underline; }
+
+.recent-tasks-empty {
+    padding: 32px;
+    border: 1px solid #E6DCEC;
+    border-radius: 16px;
+    background: #F9F3FC;
+}
+
+.recent-tasks-empty h3 { margin: 0 0 8px; font-size: 22px; }
+.recent-tasks-empty p { margin: 0; color: #53495D; }
+
+.recent-task-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.recent-task-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #E7DFD6;
+    border-radius: 16px;
+    background: #FFFBF5;
+    box-shadow: 0 2px 7px #2110320D;
+}
+
+.recent-task-card:nth-child(2) { background: #F5FAF8; border-color: #DDE9E4; }
+.recent-task-card:nth-child(3) { background: #F5F9FF; border-color: #DDE5F2; }
+
+.recent-task-category {
+    max-width: 100%;
+    margin-bottom: 14px;
+    padding: 5px 14px;
+    border-radius: 24px;
+    background: #EBDCFB;
+    color: #652080;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.recent-task-card h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.3; }
+.recent-task-card h3 a { color: #211032; text-decoration: none; }
+.recent-task-card h3 a:hover { color: #652080; text-decoration: underline; }
+.recent-task-description { margin: 0 0 24px; color: #403848; line-height: 1.5; }
+
+.recent-task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    width: 100%;
+    margin-top: auto;
+    color: #403848;
+    font-size: 14px;
+}
+
+.recent-task-meta > span { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.recent-task-meta svg { flex-shrink: 0; }
+
+@media (max-width: 1000px) {
+    .recent-task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 600px) {
+    .recent-tasks { padding: 24px 0 36px; }
+    .recent-task-grid { grid-template-columns: 1fr; }
+    .recent-tasks-empty { padding: 24px; }
+}
+
 /* Keep this introduction simple until the remaining homepage design is refined. */
 .home-about {
     padding: 32px 0;
