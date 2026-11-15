@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Applications | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "My Applications | Student Task Board";
+$activePage = "my_applications";
+require __DIR__ . "/../partials/header.php";
+?>
 
     <h1>My Applications</h1>
 
     <?php if ($successMessage !== ""): ?>
-        <p role="status"><?= htmlspecialchars($successMessage, ENT_QUOTES, "UTF-8") ?></p>
+        <p class="notice notice-success" role="status"><?= htmlspecialchars($successMessage, ENT_QUOTES, "UTF-8") ?></p>
     <?php endif; ?>
 
     <?php if ($message !== ""): ?>
-        <p role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
+        <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php elseif (empty($applications)): ?>
-        <p>You have not applied for any tasks yet.</p>
+        <p class="notice">You have not applied for any tasks yet.</p>
     <?php else: ?>
-        <table>
+        <div class="table-scroll" role="region" aria-label="My applications" tabindex="0">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th scope="col">Task</th>
@@ -64,8 +62,8 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     <?php endif; ?>
 
     <p><a href="tasks.php">Browse Tasks</a></p>
-</body>
-</html>
+<?php require __DIR__ . "/../partials/footer.php"; ?>

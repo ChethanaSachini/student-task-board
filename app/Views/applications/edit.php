@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Application | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Edit Application | Student Task Board";
+$activePage = "my_applications";
+require __DIR__ . "/../partials/header.php";
+?>
 
-    <h1>Edit Application Message</h1>
+<section class="form-card" aria-labelledby="edit-application-title">
+    <h1 id="edit-application-title">Edit Application Message</h1>
 
     <?php if ($message !== ""): ?>
-        <p role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
+        <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php else: ?>
         <h2><?= htmlspecialchars($application["title"], ENT_QUOTES, "UTF-8") ?></h2>
         <p>Task deadline: <?= htmlspecialchars($application["deadline"], ENT_QUOTES, "UTF-8") ?></p>
         <p>You can edit your message even after the task deadline. The task and applicant cannot be changed.</p>
         <?php if (!empty($errors)): ?>
-            <div role="alert">
+            <div class="notice notice-error" role="alert">
                 <ul>
                     <?php foreach ($errors as $error): ?>
                         <li><?= htmlspecialchars($error, ENT_QUOTES, "UTF-8") ?></li>
@@ -28,15 +26,18 @@
         <form method="post" action="edit_application.php?id=<?= (int) $application["id"] ?>">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars($_SESSION["csrf_token"], ENT_QUOTES, "UTF-8") ?>">
-            <p>
-                <label for="message">Message (required, up to 1,000 characters)</label><br>
-                <textarea id="message" name="message" rows="6" cols="50"
+            <p class="form-field">
+                <label for="message">Message (required, up to 1,000 characters)</label>
+                <textarea class="form-control" id="message" name="message" rows="6" cols="50"
                     maxlength="1000" required><?= htmlspecialchars($applicationMessage, ENT_QUOTES, "UTF-8") ?></textarea>
             </p>
-            <button type="submit">Save Changes</button>
+            <div class="form-actions">
+                <button class="button" type="submit">Save Changes</button>
+            </div>
         </form>
     <?php endif; ?>
 
     <p><a href="my_applications.php">Cancel and return to My Applications</a></p>
-</body>
-</html>
+</section>
+
+<?php require __DIR__ . "/../partials/footer.php"; ?>

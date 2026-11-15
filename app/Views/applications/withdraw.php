@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Withdraw Application | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Withdraw Application | Student Task Board";
+$activePage = "my_applications";
+require __DIR__ . "/../partials/header.php";
+?>
 
-    <h1>Withdraw Application</h1>
+<section class="form-card" aria-labelledby="withdraw-application-title">
+    <h1 id="withdraw-application-title">Withdraw Application</h1>
 
     <?php if ($message !== ""): ?>
-        <p role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
+        <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php else: ?>
         <h2><?= htmlspecialchars($application["title"], ENT_QUOTES, "UTF-8") ?></h2>
-        <dl>
+        <dl class="task-facts">
             <dt>Task deadline</dt>
             <dd><?= htmlspecialchars($application["deadline"], ENT_QUOTES, "UTF-8") ?></dd>
             <dt>Your application message</dt>
@@ -24,12 +22,12 @@
             <dd><?= htmlspecialchars($application["updated_at"], ENT_QUOTES, "UTF-8") ?></dd>
         </dl>
 
-        <p><strong>Withdrawing permanently deletes this application and its message. This cannot be undone.</strong></p>
+        <p class="notice notice-error"><strong>Withdrawing permanently deletes this application and its message. This cannot be undone.</strong></p>
         <p>The task itself will not be deleted.</p>
         <p>Opening this page does not delete anything. Withdrawal happens only after you confirm and submit the form.</p>
 
         <?php if (!empty($errors)): ?>
-            <div role="alert">
+            <div class="notice notice-error" role="alert">
                 <ul>
                     <?php foreach ($errors as $error): ?>
                         <li><?= htmlspecialchars($error, ENT_QUOTES, "UTF-8") ?></li>
@@ -41,16 +39,19 @@
         <form method="post" action="withdraw_application.php?id=<?= (int) $application["id"] ?>">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars($_SESSION["csrf_token"], ENT_QUOTES, "UTF-8") ?>">
-            <p>
+            <p class="form-field">
                 <label>
                     <input type="checkbox" name="confirm_withdrawal" value="1" required>
                     I understand that withdrawing permanently deletes my application and its message.
                 </label>
             </p>
-            <button type="submit">Withdraw Application</button>
+            <div class="form-actions">
+                <button class="button button-danger" type="submit">Withdraw Application</button>
+            </div>
         </form>
     <?php endif; ?>
 
     <p><a href="my_applications.php">Cancel and return to My Applications</a></p>
-</body>
-</html>
+</section>
+
+<?php require __DIR__ . "/../partials/footer.php"; ?>
