@@ -53,3 +53,56 @@ function showAdminDashboard()
 
     require __DIR__ . "/../Views/admin/dashboard.php";
 }
+
+function showAdminUsers()
+{
+    $administrator = requireAdministrator();
+    if ($administrator === null) {
+        return;
+    }
+
+    $adminUsers = [];
+    $message = "";
+
+    try {
+        require __DIR__ . "/../../db.php";
+        require_once __DIR__ . "/../Models/UserModel.php";
+
+        $adminUsers = getAdminUsers($connection);
+    } catch (mysqli_sql_exception $error) {
+        error_log($error->getMessage());
+        http_response_code(503);
+        $message = "Unable to load registered accounts. Please try again later.";
+    }
+
+    require __DIR__ . "/../Views/admin/users.php";
+}
+
+function showAdminTasks()
+{
+    $administrator = requireAdministrator();
+    if ($administrator === null) {
+        return;
+    }
+
+    $adminTasks = [];
+    $message = "";
+
+    try {
+        require __DIR__ . "/../../db.php";
+        require_once __DIR__ . "/../Models/TaskModel.php";
+
+        $adminTasks = getAdminTasks($connection);
+        $today = new DateTimeImmutable("today", new DateTimeZone("Asia/Colombo"));
+        foreach ($adminTasks as $index => $task) {
+            // Like the student pages, a deadline remains valid for all of today.
+            $adminTasks[$index]["is_expired"] = $task["deadline"] < $today->format("Y-m-d");
+        }
+    } catch (mysqli_sql_exception $error) {
+        error_log($error->getMessage());
+        http_response_code(503);
+        $message = "Unable to load task posts. Please try again later.";
+    }
+
+    require __DIR__ . "/../Views/admin/tasks.php";
+}

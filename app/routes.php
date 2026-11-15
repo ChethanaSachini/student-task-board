@@ -4,6 +4,12 @@ return [
     "/admin" => [
         "GET" => "showAdminDashboard",
     ],
+    "/admin/users" => [
+        "GET" => "showAdminUsers",
+    ],
+    "/admin/tasks" => [
+        "GET" => "showAdminTasks",
+    ],
     "/" => [
         "GET" => "showHome",
     ],

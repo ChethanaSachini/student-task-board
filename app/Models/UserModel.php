@@ -51,3 +51,20 @@ function findUserById($connection, $userId)
         $statement->close();
     }
 }
+
+function getAdminUsers($connection)
+{
+    // Only display fields are needed; never load password hashes for this list.
+    $statement = $connection->prepare(
+        "SELECT id, name, email, role, created_at
+         FROM users
+         ORDER BY created_at DESC, id DESC"
+    );
+
+    try {
+        $statement->execute();
+        return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+    } finally {
+        $statement->close();
+    }
+}

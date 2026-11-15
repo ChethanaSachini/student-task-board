@@ -162,6 +162,26 @@ function getRecentAvailableTasks($connection, $today)
     }
 }
 
+function getAdminTasks($connection)
+{
+    // Administrators can review every post, including tasks past their deadline.
+    $statement = $connection->prepare(
+        "SELECT tasks.id, tasks.title, tasks.description, tasks.category,
+                tasks.deadline, tasks.reward, tasks.created_at,
+                users.name AS poster_name
+         FROM tasks
+         INNER JOIN users ON tasks.user_id = users.id
+         ORDER BY tasks.created_at DESC, tasks.id DESC"
+    );
+
+    try {
+        $statement->execute();
+        return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+    } finally {
+        $statement->close();
+    }
+}
+
 function getAvailableTasks($connection, $today, $category)
 {
     if ($category === "") {
