@@ -12,7 +12,7 @@ require __DIR__ . "/../partials/header.php";
             <?php endif; ?>
 
             <h1 id="hero-title">Get Tasks Done <span>Together<svg class="hero-spark" width="40" height="58" viewBox="0 0 40 58" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M5 15 20 5M8 29l26 1M5 43l15 12" /></svg></span></h1>
-            <p class="hero-description" id="home-about">A simple task board for university students to post tasks, find opportunities and collaborate with peers.</p>
+            <p class="hero-description">A simple task board for university students to post tasks, find opportunities and collaborate with peers.</p>
 
             <div class="hero-actions">
                 <a class="hero-button" href="<?= isset($_SESSION["user_id"]) ? 'create_task.php' : 'signup.php' ?>">
@@ -74,6 +74,13 @@ require __DIR__ . "/../partials/header.php";
             </div>
         </div>
     </div>
+    </div>
+</section>
+
+<section class="home-about" id="home-about" aria-labelledby="home-about-title">
+    <div class="container">
+        <h2 id="home-about-title">About Student Task Board</h2>
+        <p>Student Task Board helps university students find and share small tasks. Students can use one account to post their own tasks, apply to other students' tasks, and manage their tasks and applications.</p>
     </div>
 </section>
 

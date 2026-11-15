@@ -284,6 +284,39 @@ main.container {
     font-size: 18px;
 }
 
+/* Keep this introduction simple until the remaining homepage design is refined. */
+.home-about {
+    padding: 32px 0;
+    background: #FCF9FE;
+    color: #211032;
+}
+
+.home-about h2 {
+    margin: 0 0 12px;
+    font-size: 26px;
+    line-height: 1.3;
+}
+
+.home-about p {
+    max-width: 760px;
+    margin: 0;
+}
+
+/* Narrow or short windows retain normal scrolling, leaving room for the content. */
+@media (min-width: 1200px) and (min-height: 700px) {
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    /* Allow for the taller, two-row member header plus space above the target. */
+    #home-about,
+    #how-it-works-title {
+        scroll-margin-top: 12rem;
+    }
+}
+
 @media (max-width: 1100px) {
     .header-inner { gap: 16px; }
     .site-header nav { gap: 6px; }
