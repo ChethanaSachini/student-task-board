@@ -1,6 +1,9 @@
 <?php
 
 return [
+    "/admin" => [
+        "GET" => "showAdminDashboard",
+    ],
     "/" => [
         "GET" => "showHome",
     ],

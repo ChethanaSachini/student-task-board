@@ -9,6 +9,9 @@
         <a href="create_task.php">Post Task</a> <span class="nav-separator">|</span>
         <a href="my_tasks.php">My Tasks</a> <span class="nav-separator">|</span>
         <a href="my_applications.php">My Applications</a>
+        <?php if (($_SESSION["user_role"] ?? "") === "admin"): ?>
+            <a href="admin_dashboard.php"<?= ($activePage ?? "") === "admin" ? ' aria-current="page"' : "" ?>>Admin Dashboard</a>
+        <?php endif; ?>
         <form method="post" action="logout.php">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars(

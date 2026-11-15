@@ -58,21 +58,33 @@ function processLogin()
     ) {
         $message = "Incorrect email or password.";
     } else {
-        require __DIR__ . "/../../db.php";
-        require_once __DIR__ . "/../Models/UserModel.php";
+        try {
+            require __DIR__ . "/../../db.php";
+            require_once __DIR__ . "/../Models/UserModel.php";
 
-        $user = findUserByEmail($connection, $email);
+            $user = findUserByEmail($connection, $email);
 
-        if ($user && password_verify($password, $user["password_hash"])) {
-            session_regenerate_id(true);
+            if (
+                $user
+                && password_verify($password, $user["password_hash"])
+                && in_array($user["role"], ["student", "admin"], true)
+            ) {
+                session_regenerate_id(true);
 
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["user_name"] = $user["name"];
+                $_SESSION["user_id"] = $user["id"];
+                $_SESSION["user_name"] = $user["name"];
+                $_SESSION["user_role"] = $user["role"];
 
-            header("Location: index.php");
-            exit;
-        } else {
-            $message = "Incorrect email or password.";
+                $destination = $user["role"] === "admin" ? "admin_dashboard.php" : "index.php";
+                header("Location: " . $destination);
+                exit;
+            } else {
+                $message = "Incorrect email or password.";
+            }
+        } catch (mysqli_sql_exception $error) {
+            error_log($error->getMessage());
+            http_response_code(503);
+            $message = "Unable to log in. Please try again later.";
         }
     }
 
