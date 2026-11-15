@@ -140,6 +140,28 @@ function getTasksByUser($connection, $userId)
     }
 }
 
+function getRecentAvailableTasks($connection, $today)
+{
+    // Match Browse Tasks: a task remains available throughout its deadline day.
+    $statement = $connection->prepare(
+        "SELECT tasks.id, tasks.title, tasks.description, tasks.category, tasks.deadline,
+                (SELECT COUNT(*) FROM applications
+                 WHERE applications.task_id = tasks.id) AS application_count
+         FROM tasks
+         WHERE tasks.deadline >= ?
+         ORDER BY tasks.created_at DESC, tasks.id DESC
+         LIMIT 3"
+    );
+    $statement->bind_param("s", $today);
+
+    try {
+        $statement->execute();
+        return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+    } finally {
+        $statement->close();
+    }
+}
+
 function getAvailableTasks($connection, $today, $category)
 {
     if ($category === "") {

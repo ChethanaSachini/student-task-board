@@ -112,11 +112,14 @@ require __DIR__ . "/../partials/header.php";
             </a>
         </div>
 
-        <?php // Stage 4 will supply real task data from the controller. ?>
-        <?php if (empty($recentTasks)): ?>
+        <?php if ($recentTasksError !== ""): ?>
+            <div class="recent-tasks-empty" role="status">
+                <p><?= htmlspecialchars($recentTasksError, ENT_QUOTES, "UTF-8") ?></p>
+            </div>
+        <?php elseif (empty($recentTasks)): ?>
             <div class="recent-tasks-empty">
-                <h3>Looking for a task?</h3>
-                <p>Browse all tasks to find opportunities.</p>
+                <h3>No available tasks right now.</h3>
+                <p>Please check back later.</p>
             </div>
         <?php else: ?>
             <div class="recent-task-grid">
