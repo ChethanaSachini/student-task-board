@@ -9,7 +9,7 @@ require __DIR__ . "/../partials/header.php";
         <h1 id="create-task-title">Post Task</h1>
         <p>Describe what you need help with so other students can decide whether to apply.</p>
     </div>
-    <p>All fields are required except the reward.</p>
+    <p>All fields are required.</p>
 
     <?php if (!empty($errors)): ?>
         <div class="notice notice-error" role="alert">
@@ -64,11 +64,11 @@ require __DIR__ . "/../partials/header.php";
         </p>
 
         <p class="form-field">
-            <label for="reward">Reward (LKR, optional)</label>
+            <label for="reward">Reward (LKR)</label>
             <input class="form-control" type="number" id="reward" name="reward"
                 value="<?= htmlspecialchars($values["reward"], ENT_QUOTES, "UTF-8") ?>"
-                min="0" max="99999999.99" step="0.01">
-            <span class="form-help">Leave blank for no reward, or enter an amount of zero or more with up to two decimal places.</span>
+                min="0.01" max="99999999.99" step="0.01" required>
+            <span class="form-help">Enter a monetary reward greater than LKR 0.00, with up to two decimal places.</span>
         </p>
 
         <div class="form-actions">

@@ -10,7 +10,7 @@ require __DIR__ . "/../partials/header.php";
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php else: ?>
-        <p>All fields are required except the reward.</p>
+        <p>All editable fields are required.</p>
 
         <?php if (!empty($errors)): ?>
             <div class="notice notice-error" role="alert">
@@ -72,17 +72,17 @@ require __DIR__ . "/../partials/header.php";
             </p>
 
             <p class="form-field">
-                <label for="reward">Reward (LKR, optional)</label>
+                <label for="reward">Reward (LKR)</label>
                 <input class="form-control" type="number" id="reward" name="reward"
                     value="<?= htmlspecialchars($values["reward"], ENT_QUOTES, "UTF-8") ?>"
-                    min="0" max="99999999.99" step="0.01" <?= $termsLocked ? "disabled" : "" ?>>
+                    min="0.01" max="99999999.99" step="0.01" <?= $termsLocked ? "disabled" : "" ?> required>
                 <?php if ($termsLocked): ?>
                     <strong>Locked</strong>
                     <?php if ($task["reward"] === null): ?>
                         No reward specified
                     <?php endif; ?>
                 <?php else: ?>
-                    <br><span class="form-help">Leave blank for no reward, or enter an amount of zero or more with up to two decimal places.</span>
+                    <br><span class="form-help">Enter a monetary reward greater than LKR 0.00, with up to two decimal places.</span>
                 <?php endif; ?>
             </p>
 

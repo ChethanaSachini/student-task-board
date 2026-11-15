@@ -28,6 +28,8 @@ function readTaskFormValues()
 
 function normalizeTaskReward($value)
 {
+    // Keep canonical values for locked-field comparisons; validation below
+    // rejects blank and zero rewards before a task can be saved.
     if ($value === "") {
         return null;
     }
@@ -71,8 +73,8 @@ function validateTaskValues($values, $originalDeadline = null)
     }
 
     $reward = normalizeTaskReward($values["reward"]);
-    if ($reward === false) {
-        $errors[] = "Enter a reward from LKR 0.00 to LKR 99,999,999.99 with no more than two decimal places, or leave it blank.";
+    if ($reward === false || $reward === null || $reward === "0.00") {
+        $errors[] = "Enter a required monetary reward from LKR 0.01 to LKR 99,999,999.99 with no more than two decimal places.";
         $reward = null;
     }
 

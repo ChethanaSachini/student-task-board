@@ -6,7 +6,7 @@ function createTask($connection, $userId, $title, $description, $category, $dead
         "INSERT INTO tasks (user_id, title, description, category, deadline, reward)
          VALUES (?, ?, ?, ?, ?, ?)"
     );
-    // Bind the reward as a decimal string (or NULL), without float conversion.
+    // Bind the validated positive reward as a decimal string, without float conversion.
     $statement->bind_param("isssss", $userId, $title, $description, $category, $deadline, $reward);
 
     try {
