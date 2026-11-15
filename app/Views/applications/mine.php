@@ -4,7 +4,10 @@ $activePage = "my_applications";
 require __DIR__ . "/../partials/header.php";
 ?>
 
-    <h1>My Applications</h1>
+    <div class="page-intro">
+        <h1>My Applications</h1>
+        <p>Review the tasks you have applied for, edit your messages or withdraw an application.</p>
+    </div>
 
     <?php if ($successMessage !== ""): ?>
         <p class="notice notice-success" role="status"><?= htmlspecialchars($successMessage, ENT_QUOTES, "UTF-8") ?></p>
@@ -13,7 +16,13 @@ require __DIR__ . "/../partials/header.php";
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php elseif (empty($applications)): ?>
-        <p class="notice">You have not applied for any tasks yet.</p>
+        <section class="empty-state" aria-labelledby="applications-empty-title">
+            <h2 id="applications-empty-title">You have not applied for any tasks yet.</h2>
+            <p>Browse available tasks and open a task to learn more before applying.</p>
+            <div class="form-actions">
+                <a class="button" href="tasks.php">Browse Tasks</a>
+            </div>
+        </section>
     <?php else: ?>
         <div class="table-scroll" role="region" aria-label="My applications" tabindex="0">
         <table class="data-table">
@@ -65,5 +74,5 @@ require __DIR__ . "/../partials/header.php";
         </div>
     <?php endif; ?>
 
-    <p><a href="tasks.php">Browse Tasks</a></p>
+    <p class="page-links"><a href="tasks.php">Browse Tasks</a></p>
 <?php require __DIR__ . "/../partials/footer.php"; ?>

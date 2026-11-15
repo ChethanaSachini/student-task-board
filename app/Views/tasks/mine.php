@@ -4,7 +4,13 @@ $activePage = "my_tasks";
 require __DIR__ . "/../partials/header.php";
 ?>
 
-    <h1>My Tasks</h1>
+    <div class="page-intro">
+        <h1>My Tasks</h1>
+        <p>Review your posts, open task details, or edit and delete your tasks.</p>
+        <div class="form-actions">
+            <a class="button button-secondary" href="create_task.php">Post Task</a>
+        </div>
+    </div>
 
     <?php if ($successMessage !== ""): ?>
         <p class="notice notice-success" role="status"><?= htmlspecialchars($successMessage, ENT_QUOTES, "UTF-8") ?></p>
@@ -13,7 +19,11 @@ require __DIR__ . "/../partials/header.php";
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php elseif (empty($tasks)): ?>
-        <p class="notice">You have not posted any tasks yet.</p>
+        <section class="empty-state" aria-labelledby="tasks-empty-title">
+            <h2 id="tasks-empty-title">You have not posted any tasks yet.</h2>
+            <p>Use Post Task to describe something you need help with. Your posts will appear here.</p>
+            <p>You can also <a href="tasks.php">browse tasks posted by other students</a>.</p>
+        </section>
     <?php else: ?>
         <div class="table-scroll" role="region" aria-label="My tasks" tabindex="0">
         <table class="data-table">
@@ -59,5 +69,5 @@ require __DIR__ . "/../partials/header.php";
         </div>
     <?php endif; ?>
 
-    <p><a href="tasks.php">Browse Tasks</a></p>
+    <p class="page-links"><a href="tasks.php">Browse Tasks</a></p>
 <?php require __DIR__ . "/../partials/footer.php"; ?>

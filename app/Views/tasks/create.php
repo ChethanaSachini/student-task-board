@@ -4,8 +4,11 @@ $activePage = "create_task";
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card" aria-labelledby="create-task-title">
-    <h1 id="create-task-title">Post Task</h1>
+<section class="form-card task-form" aria-labelledby="create-task-title">
+    <div class="page-intro">
+        <h1 id="create-task-title">Post Task</h1>
+        <p>Describe what you need help with so other students can decide whether to apply.</p>
+    </div>
     <p>All fields are required except the reward.</p>
 
     <?php if (!empty($errors)): ?>
@@ -57,7 +60,7 @@ require __DIR__ . "/../partials/header.php";
             <input class="form-control" type="date" id="deadline" name="deadline"
                 value="<?= htmlspecialchars($values["deadline"], ENT_QUOTES, "UTF-8") ?>"
                 min="<?= htmlspecialchars($minimumDeadline, ENT_QUOTES, "UTF-8") ?>" required>
-            <br><span class="form-help">Choose today or a later date. Applications will be accepted through the end of that date in Sri Lanka.</span>
+            <span class="form-help">Choose today or a later date. Applications will be accepted through the end of that date in Sri Lanka.</span>
         </p>
 
         <p class="form-field">
@@ -65,7 +68,7 @@ require __DIR__ . "/../partials/header.php";
             <input class="form-control" type="number" id="reward" name="reward"
                 value="<?= htmlspecialchars($values["reward"], ENT_QUOTES, "UTF-8") ?>"
                 min="0" max="99999999.99" step="0.01">
-            <br><span class="form-help">Leave blank for no reward, or enter an amount of zero or more with up to two decimal places.</span>
+            <span class="form-help">Leave blank for no reward, or enter an amount of zero or more with up to two decimal places.</span>
         </p>
 
         <div class="form-actions">
@@ -73,7 +76,7 @@ require __DIR__ . "/../partials/header.php";
         </div>
     </form>
 
-    <p><a href="tasks.php">Back to Browse Tasks</a></p>
+    <p class="page-links"><a href="tasks.php">Back to Browse Tasks</a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

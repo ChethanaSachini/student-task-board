@@ -4,11 +4,13 @@ $activePage = "tasks";
 require __DIR__ . "/../partials/header.php";
 ?>
 
-    <h1>Browse Tasks</h1>
-    <p>Find a task you can help with.</p>
+    <div class="page-intro">
+        <h1>Browse Tasks</h1>
+        <p>Find a task you can help with. Choose a category to explore available opportunities.</p>
+    </div>
 
     <div class="form-field">
-        <form class="form-card" method="get" action="tasks.php">
+        <form class="form-card task-filter" method="get" action="tasks.php">
             <div class="form-field">
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category">
@@ -30,11 +32,25 @@ require __DIR__ . "/../partials/header.php";
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php elseif (empty($tasks)): ?>
-        <?php if ($category === ""): ?>
-            <p class="notice">No available tasks yet.</p>
-        <?php else: ?>
-            <p class="notice">No available tasks in this category.</p>
-        <?php endif; ?>
+        <section class="empty-state" aria-labelledby="browse-empty-title">
+            <?php if ($category === ""): ?>
+                <h2 id="browse-empty-title">No available tasks yet.</h2>
+                <p>Check back for new posts, or share a task you need help with.</p>
+                <div class="form-actions">
+                    <?php if (isset($_SESSION["user_id"])): ?>
+                        <a class="button" href="create_task.php">Post Task</a>
+                    <?php else: ?>
+                        <a class="button" href="signup.php">Sign Up to Post</a>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <h2 id="browse-empty-title">No available tasks in this category.</h2>
+                <p>Try another category or browse all available tasks.</p>
+                <div class="form-actions">
+                    <a class="button button-secondary" href="tasks.php">View all categories</a>
+                </div>
+            <?php endif; ?>
+        </section>
     <?php else: ?>
         <div class="table-scroll" role="region" aria-label="Available tasks" tabindex="0">
         <table class="data-table">

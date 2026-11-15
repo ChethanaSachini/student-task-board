@@ -693,3 +693,56 @@ body.internal-page {
     .page-container .task-facts { grid-template-columns: 1fr; gap: 4px; }
     .page-container .task-facts dd { margin-bottom: 12px; }
 }
+
+/* Opt-in polish for task browsing, personal lists and the Post Task form. */
+.page-container .page-intro {
+    margin: 0 0 28px;
+    padding: 4px 0 4px 18px;
+    border-left: 3px solid #8B45A8;
+}
+
+.page-container .page-intro h1 { margin-bottom: 8px; }
+.page-container .page-intro > p {
+    max-width: 70ch;
+    margin: 0;
+    color: #62566C;
+    line-height: 1.6;
+}
+.page-container .page-intro .form-actions { margin-top: 16px; }
+
+.page-container .empty-state {
+    padding: clamp(24px, 4vw, 40px);
+    border: 1px solid #E6DCEC;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #FFF, #F6EFFB);
+}
+
+.page-container .empty-state h2 {
+    margin: 0 0 12px;
+    color: #49125F;
+    font-size: clamp(21px, 2.5vw, 26px);
+    line-height: 1.35;
+}
+.page-container .empty-state p { max-width: 65ch; margin: 0 0 12px; line-height: 1.6; }
+.page-container .empty-state > :last-child { margin-bottom: 0; }
+.page-container .empty-state .form-actions { margin-top: 20px; }
+.page-container .page-links { margin: 24px 0 0; }
+
+.page-container .task-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    max-width: 100%;
+    padding: 20px;
+}
+.page-container .task-filter .form-field { flex: 1 1 240px; min-width: 0; margin: 0; }
+.page-container .task-filter .form-actions { margin: 0; }
+.page-container .task-form .form-help { display: block; line-height: 1.5; }
+.page-container .task-form > form { margin-top: 24px; }
+
+@media (max-width: 600px) {
+    .page-container .task-filter { flex-direction: column; align-items: stretch; }
+    .page-container .task-filter .form-field { flex: none; }
+    .page-container .task-filter .button { width: 100%; }
+}
