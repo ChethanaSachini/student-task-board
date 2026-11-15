@@ -651,15 +651,17 @@ body.internal-page {
 
 .page-container .data-table {
     width: 100%;
-    min-width: 600px;
+    min-width: 760px;
     border-collapse: collapse;
     text-align: left;
+    overflow-wrap: normal;
 }
 
 .page-container .data-table th,
 .page-container .data-table td { padding: 14px 16px; vertical-align: top; }
-.page-container .data-table th { background: #F0E5F7; color: #49125F; }
+.page-container .data-table th { background: #F0E5F7; color: #49125F; white-space: nowrap; }
 .page-container .data-table td { border-top: 1px solid #E6DCEC; }
+.page-container .data-table td:first-child { min-width: 220px; overflow-wrap: anywhere; }
 
 /* Retain role="alert" or role="status" in the view; colour only supplements the text. */
 .page-container .notice {

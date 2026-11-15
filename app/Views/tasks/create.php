@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post Task | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Post Task | Student Task Board";
+$activePage = "create_task";
+require __DIR__ . "/../partials/header.php";
+?>
 
-    <h1>Post Task</h1>
+<section class="form-card" aria-labelledby="create-task-title">
+    <h1 id="create-task-title">Post Task</h1>
     <p>All fields are required except the reward.</p>
 
     <?php if (!empty($errors)): ?>
-        <div role="alert">
+        <div class="notice notice-error" role="alert">
             <p>Please check the following:</p>
             <ul>
                 <?php foreach ($errors as $error): ?>
@@ -29,21 +27,21 @@
                 "UTF-8"
             ) ?>">
 
-        <p>
-            <label for="title">Title</label><br>
-            <input type="text" id="title" name="title" maxlength="150"
+        <p class="form-field">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" id="title" name="title" maxlength="150"
                 value="<?= htmlspecialchars($values["title"], ENT_QUOTES, "UTF-8") ?>" required>
         </p>
 
-        <p>
-            <label for="description">Description</label><br>
-            <textarea id="description" name="description" rows="6" cols="50"
+        <p class="form-field">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="6" cols="50"
                 maxlength="5000" required><?= htmlspecialchars($values["description"], ENT_QUOTES, "UTF-8") ?></textarea>
         </p>
 
-        <p>
-            <label for="category">Category</label><br>
-            <select id="category" name="category" required>
+        <p class="form-field">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category" required>
                 <option value="">Select a category</option>
                 <?php foreach ($categories as $category): ?>
                     <option value="<?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>"
@@ -54,25 +52,28 @@
             </select>
         </p>
 
-        <p>
-            <label for="deadline">Application deadline</label><br>
-            <input type="date" id="deadline" name="deadline"
+        <p class="form-field">
+            <label for="deadline">Application deadline</label>
+            <input class="form-control" type="date" id="deadline" name="deadline"
                 value="<?= htmlspecialchars($values["deadline"], ENT_QUOTES, "UTF-8") ?>"
                 min="<?= htmlspecialchars($minimumDeadline, ENT_QUOTES, "UTF-8") ?>" required>
-            <br>Choose today or a later date. Applications will be accepted through the end of that date in Sri Lanka.
+            <br><span class="form-help">Choose today or a later date. Applications will be accepted through the end of that date in Sri Lanka.</span>
         </p>
 
-        <p>
-            <label for="reward">Reward (LKR, optional)</label><br>
-            <input type="number" id="reward" name="reward"
+        <p class="form-field">
+            <label for="reward">Reward (LKR, optional)</label>
+            <input class="form-control" type="number" id="reward" name="reward"
                 value="<?= htmlspecialchars($values["reward"], ENT_QUOTES, "UTF-8") ?>"
                 min="0" max="99999999.99" step="0.01">
-            <br>Leave blank for no reward, or enter an amount of zero or more with up to two decimal places.
+            <br><span class="form-help">Leave blank for no reward, or enter an amount of zero or more with up to two decimal places.</span>
         </p>
 
-        <button type="submit">Post Task</button>
+        <div class="form-actions">
+            <button class="button" type="submit">Post Task</button>
+        </div>
     </form>
 
     <p><a href="tasks.php">Back to Browse Tasks</a></p>
-</body>
-</html>
+</section>
+
+<?php require __DIR__ . "/../partials/footer.php"; ?>
