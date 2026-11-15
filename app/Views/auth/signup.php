@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Sign Up | Student Task Board";
+$activePage = "signup";
+require __DIR__ . "/../partials/header.php";
+?>
 
-    <h1>Create an Account</h1>
+<section class="form-card" aria-labelledby="signup-title">
+    <h1 id="signup-title">Create an Account</h1>
 
     <form method="post" action="signup.php">
         <input type="hidden" name="csrf_token"
@@ -17,30 +15,35 @@
                 "UTF-8"
             ) ?>">
         <?php if ($message !== ""): ?>
-            <p role="status">
+            <p class="notice" role="status">
                 <?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?>
             </p>
         <?php endif; ?>
 
-        <p>
-            <label for="name">Full name</label><br>
-            <input type="text" id="name" name="name"
+        <p class="form-field">
+            <label for="name">Full name</label>
+            <input class="form-control" type="text" id="name" name="name"
                    maxlength="100" required>
         </p>
 
-        <p>
-            <label for="email">Email address</label><br>
-            <input type="email" id="email" name="email"
+        <p class="form-field">
+            <label for="email">Email address</label>
+            <input class="form-control" type="email" id="email" name="email"
                    maxlength="254" required>
         </p>
 
-        <p>
-            <label for="password">Password (at least 8 characters)</label><br>
-            <input type="password" id="password" name="password"
+        <p class="form-field">
+            <label for="password">Password (at least 8 characters)</label>
+            <input class="form-control" type="password" id="password" name="password"
                    minlength="8" required>
         </p>
 
-        <button type="submit">Sign Up</button>
+        <div class="form-actions">
+            <button class="button" type="submit">Sign Up</button>
+        </div>
     </form>
-</body>
-</html>
+
+    <p>Already have an account? <a href="login.php">Log in</a>.</p>
+</section>
+
+<?php require __DIR__ . "/../partials/footer.php"; ?>

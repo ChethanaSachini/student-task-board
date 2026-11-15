@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Login | Student Task Board";
+$activePage = "login";
+require __DIR__ . "/../partials/header.php";
+?>
 
-    <h1>Login</h1>
+<section class="form-card" aria-labelledby="login-title">
+    <h1 id="login-title">Login</h1>
 
     <form method="post" action="login.php">
         <input type="hidden" name="csrf_token"
@@ -17,26 +15,29 @@
                 "UTF-8"
             ) ?>">
         <?php if ($message !== ""): ?>
-            <p role="status">
+            <p class="notice" role="status">
                 <?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?>
             </p>
         <?php endif; ?>
 
-        <p>
-            <label for="email">Email address</label><br>
-            <input type="email" id="email" name="email"
+        <p class="form-field">
+            <label for="email">Email address</label>
+            <input class="form-control" type="email" id="email" name="email"
                    autocomplete="username" required>
         </p>
 
-        <p>
-            <label for="password">Password</label><br>
-            <input type="password" id="password" name="password"
+        <p class="form-field">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password" name="password"
                    autocomplete="current-password" required>
         </p>
 
-        <button type="submit">Login</button>
+        <div class="form-actions">
+            <button class="button" type="submit">Login</button>
+        </div>
     </form>
 
     <p>Don't have an account? <a href="signup.php">Sign up</a>.</p>
-</body>
-</html>
+</section>
+
+<?php require __DIR__ . "/../partials/footer.php"; ?>
