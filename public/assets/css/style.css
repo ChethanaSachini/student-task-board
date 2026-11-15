@@ -542,3 +542,136 @@ main.container {
     .hero-button { width: 100%; }
     .hero-spark { width: 30px; height: 44px; left: calc(100% + 8px); }
 }
+
+/* Internal-page foundation. Views opt in through the shared header and these classes. */
+body.internal-page {
+    background: #FCF9FE;
+    color: #211032;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.page-container {
+    width: 89%;
+    max-width: 1120px;
+    margin: 32px auto 48px;
+    min-width: 0;
+}
+
+.page-container h1 {
+    margin: 0 0 16px;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.2;
+    color: #1A082B;
+}
+
+.page-container a { color: #652080; }
+
+.page-container .card,
+.page-container .form-card {
+    min-width: 0;
+    padding: clamp(20px, 3vw, 32px);
+    border: 1px solid #E6DCEC;
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: 0 2px 7px #2110320D;
+}
+
+.page-container .form-card { max-width: 680px; }
+.page-container .form-field { margin: 0 0 20px; }
+.page-container .form-field label { display: block; margin-bottom: 6px; font-weight: 600; }
+.page-container .form-help { margin: 6px 0 0; font-size: 14px; color: #62566C; }
+
+/* Use form-control on text inputs, selects and textareas, not checkboxes or radios. */
+.page-container .form-control {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #BBA9C5;
+    border-radius: 8px;
+    background: #FFF;
+    color: #211032;
+    font: inherit;
+    line-height: 1.5;
+}
+
+.page-container textarea.form-control { resize: vertical; }
+.page-container .form-control:disabled { background: #F1EDF3; color: #62566C; }
+.page-container .form-control[readonly] { background: #F9F6FB; }
+
+.page-container .form-control:focus-visible,
+.page-container .table-scroll:focus-visible {
+    outline: 3px solid #8B45A8;
+    outline-offset: 4px;
+}
+
+.page-container .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.page-container .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 10px 20px;
+    border: 1px solid #652080;
+    border-radius: 10px;
+    background: #652080;
+    color: #FFF;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.page-container .button:hover { background: #49125F; color: #FFF; }
+.page-container .button-secondary { background: #FFF; color: #652080; }
+.page-container .button-secondary:hover { background: #F0E5F7; color: #49125F; }
+.page-container .button-danger { border-color: #A1253B; background: #A1253B; }
+.page-container .button-danger:hover { background: #7C1A2C; }
+.page-container .button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Keep wide data inside a scrollable wrapper instead of widening the whole page. */
+.page-container .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #E6DCEC;
+    border-radius: 12px;
+    background: #FFF;
+}
+
+.page-container .data-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.page-container .data-table th,
+.page-container .data-table td { padding: 14px 16px; vertical-align: top; }
+.page-container .data-table th { background: #F0E5F7; color: #49125F; }
+.page-container .data-table td { border-top: 1px solid #E6DCEC; }
+
+/* Retain role="alert" or role="status" in the view; colour only supplements the text. */
+.page-container .notice {
+    margin: 0 0 20px;
+    padding: 16px 20px;
+    border: 1px solid #D8C3E3;
+    border-radius: 10px;
+    background: #F6EFFB;
+    color: #49125F;
+}
+
+.page-container .notice-error { border-color: #E6B4BD; background: #FFF1F3; color: #7C1A2C; }
+.page-container .notice-success { border-color: #B6D7C0; background: #EFF8F1; color: #245436; }
+.page-container .notice > :first-child { margin-top: 0; }
+.page-container .notice > :last-child { margin-bottom: 0; }

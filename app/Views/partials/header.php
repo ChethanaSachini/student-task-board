@@ -6,7 +6,7 @@
     <title><?= htmlspecialchars($pageTitle ?? "Student Task Board", ENT_QUOTES, "UTF-8") ?></title>
     <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
-<body>
+<body<?= ($activePage ?? "") === "home" ? "" : ' class="internal-page"' ?>>
     <header class="site-header">
         <div class="container header-inner">
             <a class="site-name" href="index.php">
@@ -23,4 +23,4 @@
             <?php require __DIR__ . "/nav.php"; ?>
         </div>
     </header>
-    <main class="container">
+    <main class="<?= ($activePage ?? "") === "home" ? "container" : "page-container" ?>">
