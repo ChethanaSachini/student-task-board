@@ -675,3 +675,19 @@ body.internal-page {
 .page-container .notice-success { border-color: #B6D7C0; background: #EFF8F1; color: #245436; }
 .page-container .notice > :first-child { margin-top: 0; }
 .page-container .notice > :last-child { margin-bottom: 0; }
+
+/* Task detail labels and values stack on smaller screens. */
+.page-container .task-facts {
+    display: grid;
+    grid-template-columns: minmax(100px, 160px) minmax(0, 1fr);
+    gap: 12px 24px;
+    margin: 24px 0;
+}
+
+.page-container .task-facts dt { font-weight: 600; }
+.page-container .task-facts dd { min-width: 0; margin: 0; }
+
+@media (max-width: 600px) {
+    .page-container .task-facts { grid-template-columns: 1fr; gap: 4px; }
+    .page-container .task-facts dd { margin-bottom: 12px; }
+}

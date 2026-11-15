@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Task Details | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Task Details | Student Task Board";
+$activePage = "tasks";
+require __DIR__ . "/../partials/header.php";
+?>
 
+<article class="card">
     <?php if ($message !== ""): ?>
         <h1>Task Details</h1>
-        <p role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
+        <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php else: ?>
         <h1><?= htmlspecialchars($task["title"], ENT_QUOTES, "UTF-8") ?></h1>
         <p><?= nl2br(htmlspecialchars($task["description"], ENT_QUOTES, "UTF-8")) ?></p>
-        <dl>
+        <dl class="task-facts">
             <dt>Category</dt>
             <dd><?= htmlspecialchars($task["category"], ENT_QUOTES, "UTF-8") ?></dd>
 
@@ -41,20 +39,22 @@
             <dd><?= htmlspecialchars($task["created_at"], ENT_QUOTES, "UTF-8") ?></dd>
         </dl>
         <?php if (isset($_SESSION["user_id"]) && (int) $_SESSION["user_id"] === (int) $task["user_id"]): ?>
-            <p><a href="task_applications.php?task_id=<?= (int) $task["id"] ?>">View Applicants</a></p>
-            <p><a href="edit_task.php?id=<?= (int) $task["id"] ?>">Edit Task</a></p>
-            <p><a href="delete_task.php?id=<?= (int) $task["id"] ?>">Delete Task</a></p>
+            <div class="form-actions">
+                <a class="button" href="task_applications.php?task_id=<?= (int) $task["id"] ?>">View Applicants</a>
+                <a class="button button-secondary" href="edit_task.php?id=<?= (int) $task["id"] ?>">Edit Task</a>
+                <a class="button button-danger" href="delete_task.php?id=<?= (int) $task["id"] ?>">Delete Task</a>
+            </div>
         <?php elseif ($existingApplication): ?>
-            <p>You have already applied for this task. <a href="my_applications.php">View My Applications</a></p>
+            <p class="notice">You have already applied for this task. <a href="my_applications.php">View My Applications</a></p>
         <?php elseif (!$isExpired): ?>
             <?php if (isset($_SESSION["user_id"])): ?>
-                <p><a href="apply_task.php?task_id=<?= (int) $task["id"] ?>">Apply for Task</a></p>
+                <div class="form-actions"><a class="button" href="apply_task.php?task_id=<?= (int) $task["id"] ?>">Apply for Task</a></div>
             <?php else: ?>
-                <p><a href="login.php">Log in to apply</a></p>
+                <div class="form-actions"><a class="button" href="login.php">Log in to apply</a></div>
             <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
+</article>
 
     <p><a href="tasks.php">Back to Browse Tasks</a></p>
-</body>
-</html>
+<?php require __DIR__ . "/../partials/footer.php"; ?>

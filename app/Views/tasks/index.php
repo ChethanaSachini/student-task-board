@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Browse Tasks | Student Task Board</title>
-</head>
-<body>
-    <?php require __DIR__ . "/../partials/nav.php"; ?>
+<?php
+$pageTitle = "Browse Tasks | Student Task Board";
+$activePage = "tasks";
+require __DIR__ . "/../partials/header.php";
+?>
 
     <h1>Browse Tasks</h1>
     <p>Find a task you can help with.</p>
 
-    <form method="get" action="tasks.php">
-        <label for="category">Category</label>
-        <select id="category" name="category">
-            <option value="">All categories</option>
-            <?php foreach ($categories as $taskCategory): ?>
-                <option value="<?= htmlspecialchars($taskCategory, ENT_QUOTES, "UTF-8") ?>"
-                    <?= $category === $taskCategory ? "selected" : "" ?>>
-                    <?= htmlspecialchars($taskCategory, ENT_QUOTES, "UTF-8") ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit">Filter</button>
-    </form>
+    <div class="form-field">
+        <form class="form-card" method="get" action="tasks.php">
+            <div class="form-field">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category">
+                    <option value="">All categories</option>
+                    <?php foreach ($categories as $taskCategory): ?>
+                        <option value="<?= htmlspecialchars($taskCategory, ENT_QUOTES, "UTF-8") ?>"
+                            <?= $category === $taskCategory ? "selected" : "" ?>>
+                            <?= htmlspecialchars($taskCategory, ENT_QUOTES, "UTF-8") ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="button" type="submit">Filter</button>
+            </div>
+        </form>
+    </div>
 
     <?php if ($message !== ""): ?>
-        <p role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
+        <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
     <?php elseif (empty($tasks)): ?>
         <?php if ($category === ""): ?>
-            <p>No available tasks yet.</p>
+            <p class="notice">No available tasks yet.</p>
         <?php else: ?>
-            <p>No available tasks in this category.</p>
+            <p class="notice">No available tasks in this category.</p>
         <?php endif; ?>
     <?php else: ?>
-        <table>
+        <div class="table-scroll" role="region" aria-label="Available tasks" tabindex="0">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th scope="col">Title</th>
@@ -63,6 +67,6 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     <?php endif; ?>
-</body>
-</html>
+<?php require __DIR__ . "/../partials/footer.php"; ?>
