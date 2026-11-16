@@ -1,11 +1,20 @@
 <?php
 $pageTitle = "Login | Student Task Board";
 $activePage = "login";
+$campusTheme = true;
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card" aria-labelledby="login-title">
-    <h1 id="login-title">Login</h1>
+<section class="form-card auth-card" aria-labelledby="login-title">
+    <?php
+    $pageHeading = [
+        "id" => "login-title",
+        "title" => "Login",
+        "description" => "Welcome back! Please sign in to continue.",
+        "icon" => "login",
+    ];
+    require __DIR__ . "/../partials/page-heading.php";
+    ?>
 
     <form method="post" action="login.php">
         <input type="hidden" name="csrf_token"
@@ -37,7 +46,7 @@ require __DIR__ . "/../partials/header.php";
         </div>
     </form>
 
-    <p>Don't have an account? <a href="signup.php">Sign up</a>.</p>
+    <p class="auth-switch">Don't have an account? <a href="signup.php">Sign up</a>.</p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

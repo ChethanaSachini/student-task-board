@@ -6,7 +6,7 @@
     <title><?= htmlspecialchars($pageTitle ?? "Student Task Board", ENT_QUOTES, "UTF-8") ?></title>
     <link rel="stylesheet" href="public/assets/css/style.css">
 </head>
-<body<?= ($activePage ?? "") === "home" ? "" : ' class="internal-page"' ?>>
+<body<?= ($activePage ?? "") === "home" ? "" : (!empty($campusTheme) ? ' class="internal-page campus-theme"' : ' class="internal-page"') ?>>
     <header class="site-header">
         <div class="container header-inner">
             <a class="site-name" href="index.php">

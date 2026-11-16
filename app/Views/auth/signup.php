@@ -1,11 +1,20 @@
 <?php
 $pageTitle = "Sign Up | Student Task Board";
 $activePage = "signup";
+$campusTheme = true;
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card" aria-labelledby="signup-title">
-    <h1 id="signup-title">Create an Account</h1>
+<section class="form-card auth-card" aria-labelledby="signup-title">
+    <?php
+    $pageHeading = [
+        "id" => "signup-title",
+        "title" => "Create an Account",
+        "description" => "Join the student community to post and apply for tasks.",
+        "icon" => "signup",
+    ];
+    require __DIR__ . "/../partials/page-heading.php";
+    ?>
 
     <form method="post" action="signup.php">
         <input type="hidden" name="csrf_token"
@@ -43,7 +52,7 @@ require __DIR__ . "/../partials/header.php";
         </div>
     </form>
 
-    <p>Already have an account? <a href="login.php">Log in</a>.</p>
+    <p class="auth-switch">Already have an account? <a href="login.php">Log in</a>.</p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

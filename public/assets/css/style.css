@@ -746,3 +746,84 @@ body.internal-page {
     .page-container .task-filter .form-field { flex: none; }
     .page-container .task-filter .button { width: 100%; }
 }
+
+/* Campus redesign: only views explicitly opting in receive these styles. */
+body.internal-page.campus-theme {
+    background-color: #F5EDF9;
+    background-image: url("../images/campus-background.webp");
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.campus-theme .page-container {
+    margin-top: 40px;
+    margin-bottom: 56px;
+}
+
+.campus-theme .card,
+.campus-theme .form-card {
+    margin-inline: auto;
+    border-color: #E9DFF0;
+    border-radius: 24px;
+    background: #FFF;
+    box-shadow: 0 12px 32px #4B1B6521;
+}
+
+.campus-theme .page-heading {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.campus-theme .page-heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    border-radius: 18px;
+    background: #EEDFF6;
+    color: #652080;
+}
+
+.campus-theme .page-heading h1 { margin-bottom: 12px; }
+.campus-theme .page-heading p {
+    margin: 0;
+    color: #62516C;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* The divider is decorative; heading text stays real, selectable HTML. */
+.campus-theme .page-heading::after {
+    content: "";
+    display: block;
+    width: min(100%, 240px);
+    height: 4px;
+    margin: 24px auto 0;
+    background: linear-gradient(to right, transparent 0 35%, #652080 35% 65%, transparent 65%),
+                linear-gradient(#DCC9E7, #DCC9E7) center / 100% 1px no-repeat;
+    border-radius: 4px;
+}
+
+.campus-theme .auth-card {
+    max-width: 480px;
+    padding: clamp(24px, 4vw, 40px);
+}
+
+.campus-theme .form-control { background: #FDFAFF; border-color: #B69BC7; }
+.campus-theme .auth-card .form-actions { justify-content: center; }
+.campus-theme .auth-card button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(110deg, #76258F, #591570);
+}
+.campus-theme .auth-card button[type="submit"]:hover { background: #49125F; }
+.campus-theme .auth-switch { margin: 24px 0 0; text-align: center; line-height: 1.6; }
+.campus-theme .notice { overflow-wrap: anywhere; }
+
+@media (max-width: 600px) {
+    .campus-theme .page-container { width: 92%; margin-top: 24px; margin-bottom: 32px; }
+    .campus-theme .form-card { border-radius: 20px; }
+    .campus-theme .page-heading h1 { font-size: 28px; }
+}
