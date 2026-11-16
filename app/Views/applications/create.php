@@ -1,16 +1,25 @@
 <?php
 $pageTitle = "Apply for Task | Student Task Board";
 $activePage = "my_applications";
+$campusTheme = true;
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card" aria-labelledby="apply-task-title">
-    <h1 id="apply-task-title">Apply for Task</h1>
+<section class="form-card campus-form" aria-labelledby="apply-task-title">
+    <?php
+    $pageHeading = [
+        "id" => "apply-task-title",
+        "title" => "Apply for Task",
+        "description" => "Review the task and explain how you can help.",
+        "icon" => "document",
+    ];
+    require __DIR__ . "/../partials/page-heading.php";
+    ?>
 
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
         <?php if ($existingApplication): ?>
-            <p><a href="my_applications.php">View My Applications</a></p>
+            <p class="campus-form-links"><a href="my_applications.php">View My Applications</a></p>
         <?php endif; ?>
     <?php else: ?>
         <h2><?= htmlspecialchars($task["title"], ENT_QUOTES, "UTF-8") ?></h2>
@@ -56,9 +65,9 @@ require __DIR__ . "/../partials/header.php";
     <?php endif; ?>
 
     <?php if ($task): ?>
-        <p><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
+        <p class="campus-form-links"><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
     <?php else: ?>
-        <p><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
+        <p class="campus-form-links"><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
     <?php endif; ?>
 </section>
 

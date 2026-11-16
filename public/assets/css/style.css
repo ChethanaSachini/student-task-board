@@ -827,3 +827,40 @@ body.internal-page.campus-theme {
     .campus-theme .form-card { border-radius: 20px; }
     .campus-theme .page-heading h1 { font-size: 28px; }
 }
+
+/* Stage 3A forms: these classes leave authentication cards and tables unchanged. */
+.campus-theme .campus-form {
+    max-width: 800px;
+    padding: clamp(24px, 4vw, 40px);
+    line-height: 1.6;
+}
+
+.campus-theme .campus-form > h2 {
+    margin: 0 0 16px;
+    font-size: clamp(21px, 2.5vw, 26px);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.campus-theme .campus-form-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 24px;
+}
+
+.campus-theme .campus-form-row > .form-field { min-width: 0; }
+.campus-theme .campus-form .form-help { display: block; line-height: 1.5; }
+.campus-theme .campus-form .form-actions { justify-content: center; }
+.campus-theme .campus-form .form-actions .button { min-width: 160px; }
+.campus-theme .campus-form .task-facts dd { overflow-wrap: anywhere; }
+.campus-theme .campus-form .notice ul { padding-left: 24px; }
+.campus-theme .campus-form-links { margin: 24px 0 0; text-align: center; }
+.campus-theme .campus-form input[type="checkbox"] { accent-color: #652080; }
+
+@media (max-width: 760px) {
+    .campus-theme .campus-form-row { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .campus-theme .campus-form .form-actions .button { width: 100%; min-width: 0; }
+}

@@ -1,11 +1,20 @@
 <?php
 $pageTitle = "Withdraw Application | Student Task Board";
 $activePage = "my_applications";
+$campusTheme = true;
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card" aria-labelledby="withdraw-application-title">
-    <h1 id="withdraw-application-title">Withdraw Application</h1>
+<section class="form-card campus-form" aria-labelledby="withdraw-application-title">
+    <?php
+    $pageHeading = [
+        "id" => "withdraw-application-title",
+        "title" => "Withdraw Application",
+        "description" => "Review your application and withdrawal warning before confirming.",
+        "icon" => "document",
+    ];
+    require __DIR__ . "/../partials/page-heading.php";
+    ?>
 
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
@@ -51,7 +60,7 @@ require __DIR__ . "/../partials/header.php";
         </form>
     <?php endif; ?>
 
-    <p><a href="my_applications.php">Cancel and return to My Applications</a></p>
+    <p class="campus-form-links"><a href="my_applications.php">Cancel and return to My Applications</a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

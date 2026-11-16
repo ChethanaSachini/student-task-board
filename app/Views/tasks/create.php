@@ -1,14 +1,20 @@
 <?php
 $pageTitle = "Post Task | Student Task Board";
 $activePage = "create_task";
+$campusTheme = true;
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card task-form" aria-labelledby="create-task-title">
-    <div class="page-intro">
-        <h1 id="create-task-title">Post Task</h1>
-        <p>Describe what you need help with so other students can decide whether to apply.</p>
-    </div>
+<section class="form-card task-form campus-form" aria-labelledby="create-task-title">
+    <?php
+    $pageHeading = [
+        "id" => "create-task-title",
+        "title" => "Post Task",
+        "description" => "Describe what you need help with so other students can decide whether to apply.",
+        "icon" => "document",
+    ];
+    require __DIR__ . "/../partials/page-heading.php";
+    ?>
     <p>All fields are required.</p>
 
     <?php if (!empty($errors)): ?>
@@ -42,26 +48,28 @@ require __DIR__ . "/../partials/header.php";
                 maxlength="5000" required><?= htmlspecialchars($values["description"], ENT_QUOTES, "UTF-8") ?></textarea>
         </p>
 
-        <p class="form-field">
-            <label for="category">Category</label>
-            <select class="form-control" id="category" name="category" required>
-                <option value="">Select a category</option>
-                <?php foreach ($categories as $category): ?>
-                    <option value="<?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>"
-                        <?= $values["category"] === $category ? "selected" : "" ?>>
-                        <?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </p>
+        <div class="campus-form-row">
+            <p class="form-field">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>"
+                            <?= $values["category"] === $category ? "selected" : "" ?>>
+                            <?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
 
-        <p class="form-field">
-            <label for="deadline">Application deadline</label>
-            <input class="form-control" type="date" id="deadline" name="deadline"
-                value="<?= htmlspecialchars($values["deadline"], ENT_QUOTES, "UTF-8") ?>"
-                min="<?= htmlspecialchars($minimumDeadline, ENT_QUOTES, "UTF-8") ?>" required>
-            <span class="form-help">Choose today or a later date. Applications will be accepted through the end of that date in Sri Lanka.</span>
-        </p>
+            <p class="form-field">
+                <label for="deadline">Application deadline</label>
+                <input class="form-control" type="date" id="deadline" name="deadline"
+                    value="<?= htmlspecialchars($values["deadline"], ENT_QUOTES, "UTF-8") ?>"
+                    min="<?= htmlspecialchars($minimumDeadline, ENT_QUOTES, "UTF-8") ?>" required>
+                <span class="form-help">Choose today or a later date. Applications will be accepted through the end of that date in Sri Lanka.</span>
+            </p>
+        </div>
 
         <p class="form-field">
             <label for="reward">Reward (LKR)</label>
@@ -76,7 +84,7 @@ require __DIR__ . "/../partials/header.php";
         </div>
     </form>
 
-    <p class="page-links"><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
+    <p class="page-links campus-form-links"><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

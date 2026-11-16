@@ -1,11 +1,20 @@
 <?php
 $pageTitle = "Edit Task | Student Task Board";
 $activePage = "my_tasks";
+$campusTheme = true;
 require __DIR__ . "/../partials/header.php";
 ?>
 
-<section class="form-card" aria-labelledby="edit-task-title">
-    <h1 id="edit-task-title">Edit Task</h1>
+<section class="form-card campus-form" aria-labelledby="edit-task-title">
+    <?php
+    $pageHeading = [
+        "id" => "edit-task-title",
+        "title" => "Edit Task",
+        "description" => "Update your task while keeping existing applications and their agreed terms protected.",
+        "icon" => "document",
+    ];
+    require __DIR__ . "/../partials/page-heading.php";
+    ?>
 
     <?php if ($message !== ""): ?>
         <p class="notice" role="status"><?= htmlspecialchars($message, ENT_QUOTES, "UTF-8") ?></p>
@@ -47,29 +56,31 @@ require __DIR__ . "/../partials/header.php";
                     maxlength="5000" required><?= htmlspecialchars($values["description"], ENT_QUOTES, "UTF-8") ?></textarea>
             </p>
 
-            <p class="form-field">
-                <label for="category">Category</label>
-                <select class="form-control" id="category" name="category" required>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>"
-                            <?= $values["category"] === $category ? "selected" : "" ?>>
-                            <?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </p>
+            <div class="campus-form-row">
+                <p class="form-field">
+                    <label for="category">Category</label>
+                    <select class="form-control" id="category" name="category" required>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>"
+                                <?= $values["category"] === $category ? "selected" : "" ?>>
+                                <?= htmlspecialchars($category, ENT_QUOTES, "UTF-8") ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </p>
 
-            <p class="form-field">
-                <label for="deadline">Application deadline</label>
-                <input class="form-control" type="date" id="deadline" name="deadline"
-                    value="<?= htmlspecialchars($values["deadline"], ENT_QUOTES, "UTF-8") ?>"
-                    <?= $termsLocked ? "disabled" : "" ?> required>
-                <?php if ($termsLocked): ?>
-                    <strong>Locked</strong>
-                <?php else: ?>
-                    <br><span class="form-help">An existing expired deadline may be kept. A changed deadline must be today or later in Sri Lanka.</span>
-                <?php endif; ?>
-            </p>
+                <p class="form-field">
+                    <label for="deadline">Application deadline</label>
+                    <input class="form-control" type="date" id="deadline" name="deadline"
+                        value="<?= htmlspecialchars($values["deadline"], ENT_QUOTES, "UTF-8") ?>"
+                        <?= $termsLocked ? "disabled" : "" ?> required>
+                    <?php if ($termsLocked): ?>
+                        <strong>Locked</strong>
+                    <?php else: ?>
+                        <br><span class="form-help">An existing expired deadline may be kept. A changed deadline must be today or later in Sri Lanka.</span>
+                    <?php endif; ?>
+                </p>
+            </div>
 
             <p class="form-field">
                 <label for="reward">Reward (LKR)</label>
@@ -91,10 +102,10 @@ require __DIR__ . "/../partials/header.php";
             </div>
         </form>
 
-        <p><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
+        <p class="campus-form-links"><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
     <?php endif; ?>
 
-    <p><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
+    <p class="campus-form-links"><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>
