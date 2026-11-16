@@ -22,7 +22,7 @@ require __DIR__ . "/../partials/header.php";
         </div>
     <?php endif; ?>
 
-    <form method="post" action="create_task.php">
+    <form method="post" action="create_task.php?from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">
         <input type="hidden" name="csrf_token"
             value="<?= htmlspecialchars(
                 $_SESSION["csrf_token"],
@@ -76,7 +76,7 @@ require __DIR__ . "/../partials/header.php";
         </div>
     </form>
 
-    <p class="page-links"><a href="tasks.php">Back to Browse Tasks</a></p>
+    <p class="page-links"><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

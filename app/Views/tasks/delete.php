@@ -15,7 +15,7 @@ require __DIR__ . "/../partials/header.php";
         <p class="notice notice-error"><strong>Permanently deleting this task will also permanently delete all its applications. This cannot be undone.</strong></p>
         <p>Opening this page does not delete anything. Deletion happens only after you confirm and submit the form.</p>
 
-        <form method="post" action="delete_task.php?id=<?= (int) $task["id"] ?>">
+        <form method="post" action="delete_task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars($_SESSION["csrf_token"], ENT_QUOTES, "UTF-8") ?>">
             <p class="form-field">
@@ -29,10 +29,10 @@ require __DIR__ . "/../partials/header.php";
             </div>
         </form>
 
-        <p><a href="task.php?id=<?= (int) $task["id"] ?>">Cancel and return to task details</a></p>
+        <p><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
     <?php endif; ?>
 
-    <p><a href="my_tasks.php">Back to My Tasks</a></p>
+    <p><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

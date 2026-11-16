@@ -42,7 +42,7 @@ require __DIR__ . "/../partials/header.php";
                 <?php foreach ($applications as $application): ?>
                     <tr>
                         <td>
-                            <a href="task.php?id=<?= (int) $application["task_id"] ?>">
+                            <a href="task.php?id=<?= (int) $application["task_id"] ?>&amp;from=my_applications">
                                 <?= htmlspecialchars($application["title"], ENT_QUOTES, "UTF-8") ?>
                             </a>
                         </td>

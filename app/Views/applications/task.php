@@ -101,7 +101,7 @@ require __DIR__ . "/../partials/header.php";
             </section>
         </div>
 
-        <p><a href="task.php?id=<?= (int) $task["id"] ?>">Back to task details</a></p>
+        <p><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Back to task details</a></p>
     <?php endif; ?>
 
     <p><a href="my_tasks.php">My Tasks</a></p>

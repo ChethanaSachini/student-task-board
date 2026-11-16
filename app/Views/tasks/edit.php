@@ -31,7 +31,7 @@ require __DIR__ . "/../partials/header.php";
             <p class="notice">Applications already exist for this task. Its reward and deadline are locked and cannot be changed. You may still edit its title, description and category.</p>
         <?php endif; ?>
 
-        <form method="post" action="edit_task.php?id=<?= (int) $task["id"] ?>">
+        <form method="post" action="edit_task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars($_SESSION["csrf_token"], ENT_QUOTES, "UTF-8") ?>">
 
@@ -91,10 +91,10 @@ require __DIR__ . "/../partials/header.php";
             </div>
         </form>
 
-        <p><a href="task.php?id=<?= (int) $task["id"] ?>">Cancel and return to task details</a></p>
+        <p><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
     <?php endif; ?>
 
-    <p><a href="my_tasks.php">Back to My Tasks</a></p>
+    <p><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
 </section>
 
 <?php require __DIR__ . "/../partials/footer.php"; ?>

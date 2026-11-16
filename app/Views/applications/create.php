@@ -41,7 +41,7 @@ require __DIR__ . "/../partials/header.php";
                 </ul>
             </div>
         <?php endif; ?>
-        <form method="post" action="apply_task.php?task_id=<?= (int) $task["id"] ?>">
+        <form method="post" action="apply_task.php?task_id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">
             <input type="hidden" name="csrf_token"
                 value="<?= htmlspecialchars($_SESSION["csrf_token"], ENT_QUOTES, "UTF-8") ?>">
             <p class="form-field">
@@ -56,9 +56,9 @@ require __DIR__ . "/../partials/header.php";
     <?php endif; ?>
 
     <?php if ($task): ?>
-        <p><a href="task.php?id=<?= (int) $task["id"] ?>">Cancel and return to task details</a></p>
+        <p><a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Cancel and return to task details</a></p>
     <?php else: ?>
-        <p><a href="tasks.php">Back to Browse Tasks</a></p>
+        <p><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
     <?php endif; ?>
 </section>
 

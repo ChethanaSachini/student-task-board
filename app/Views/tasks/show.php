@@ -40,15 +40,15 @@ require __DIR__ . "/../partials/header.php";
         </dl>
         <?php if (isset($_SESSION["user_id"]) && (int) $_SESSION["user_id"] === (int) $task["user_id"]): ?>
             <div class="form-actions">
-                <a class="button" href="task_applications.php?task_id=<?= (int) $task["id"] ?>">View Applicants</a>
-                <a class="button button-secondary" href="edit_task.php?id=<?= (int) $task["id"] ?>">Edit Task</a>
-                <a class="button button-danger" href="delete_task.php?id=<?= (int) $task["id"] ?>">Delete Task</a>
+                <a class="button" href="task_applications.php?task_id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">View Applicants</a>
+                <a class="button button-secondary" href="edit_task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Edit Task</a>
+                <a class="button button-danger" href="delete_task.php?id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Delete Task</a>
             </div>
         <?php elseif ($existingApplication): ?>
             <p class="notice">You have already applied for this task. <a href="my_applications.php">View My Applications</a></p>
         <?php elseif (!$isExpired): ?>
             <?php if (isset($_SESSION["user_id"])): ?>
-                <div class="form-actions"><a class="button" href="apply_task.php?task_id=<?= (int) $task["id"] ?>">Apply for Task</a></div>
+                <div class="form-actions"><a class="button" href="apply_task.php?task_id=<?= (int) $task["id"] ?>&amp;from=<?= htmlspecialchars($taskNavigation["source"], ENT_QUOTES, "UTF-8") ?>">Apply for Task</a></div>
             <?php else: ?>
                 <div class="form-actions"><a class="button" href="login.php">Log in to apply</a></div>
             <?php endif; ?>
@@ -56,5 +56,5 @@ require __DIR__ . "/../partials/header.php";
     <?php endif; ?>
 </article>
 
-    <p><a href="tasks.php">Back to Browse Tasks</a></p>
+    <p><a href="<?= htmlspecialchars($taskNavigation["url"], ENT_QUOTES, "UTF-8") ?>"><?= htmlspecialchars($taskNavigation["label"], ENT_QUOTES, "UTF-8") ?></a></p>
 <?php require __DIR__ . "/../partials/footer.php"; ?>

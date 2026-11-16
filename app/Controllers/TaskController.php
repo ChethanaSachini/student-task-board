@@ -83,6 +83,7 @@ function validateTaskValues($values, $originalDeadline = null)
 
 function showDeleteTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null, "my_tasks");
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -132,6 +133,7 @@ function showDeleteTask()
 
 function processDeleteTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null, "my_tasks");
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -216,6 +218,7 @@ function processDeleteTask()
 
 function showEditTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null, "my_tasks");
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -274,6 +277,7 @@ function showEditTask()
 
 function processEditTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null, "my_tasks");
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -365,7 +369,7 @@ function processEditTask()
                     // The locked task cannot disappear; unchanged values are also success.
                     $connection->commit();
                     $transactionStarted = false;
-                    header("Location: task.php?id=" . $taskId, true, 303);
+                    header("Location: task.php?id=" . $taskId . "&from=" . $taskNavigation["source"], true, 303);
                     exit;
                 }
             }
@@ -390,6 +394,7 @@ function processEditTask()
 
 function showCreateTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null);
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -412,6 +417,7 @@ function showCreateTask()
 
 function processCreateTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null);
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -457,7 +463,7 @@ function processCreateTask()
         }
 
         if (empty($errors)) {
-            header("Location: task.php?id=" . $taskId, true, 303);
+            header("Location: task.php?id=" . $taskId . "&from=" . $taskNavigation["source"], true, 303);
             exit;
         }
     } else {
@@ -469,6 +475,7 @@ function processCreateTask()
 
 function showTask()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null);
     $taskId = $_GET["id"] ?? "";
     $task = null;
     $message = "";

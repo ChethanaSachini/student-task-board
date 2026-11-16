@@ -262,6 +262,7 @@ function processEditApplication()
 
 function showApplicationForm()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null);
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -322,6 +323,7 @@ function showApplicationForm()
 
 function processCreateApplication()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null);
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;
@@ -465,6 +467,7 @@ function showMyApplications()
 
 function showTaskApplications()
 {
+    $taskNavigation = getTaskNavigation($_GET["from"] ?? null, "my_tasks");
     if (empty($_SESSION["user_id"])) {
         header("Location: login.php");
         exit;

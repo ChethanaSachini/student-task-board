@@ -15,7 +15,7 @@ require __DIR__ . "/../partials/header.php";
             <p class="hero-description">A simple task board for university students to post tasks, find opportunities and collaborate with peers.</p>
 
             <div class="hero-actions">
-                <a class="hero-button" href="<?= isset($_SESSION["user_id"]) ? 'create_task.php' : 'signup.php' ?>">
+                <a class="hero-button" href="<?= isset($_SESSION["user_id"]) ? 'create_task.php?from=home' : 'signup.php' ?>">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" /></svg>
                     <?= isset($_SESSION["user_id"]) ? 'Post a Task' : 'Sign Up to Post' ?>
                 </a>
@@ -134,7 +134,7 @@ require __DIR__ . "/../partials/header.php";
                     <article class="recent-task-card">
                         <span class="recent-task-category"><?= htmlspecialchars($task["category"], ENT_QUOTES, "UTF-8") ?></span>
                         <h3>
-                            <a href="task.php?id=<?= (int) $task["id"] ?>"><?= htmlspecialchars($task["title"], ENT_QUOTES, "UTF-8") ?></a>
+                            <a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=home"><?= htmlspecialchars($task["title"], ENT_QUOTES, "UTF-8") ?></a>
                         </h3>
                         <p class="recent-task-description"><?= htmlspecialchars($descriptionPreview, ENT_QUOTES, "UTF-8") ?></p>
                         <div class="recent-task-meta">

@@ -8,7 +8,7 @@ require __DIR__ . "/../partials/header.php";
         <h1>My Tasks</h1>
         <p>Review your posts, open task details, or edit and delete your tasks.</p>
         <div class="form-actions">
-            <a class="button button-secondary" href="create_task.php">Post Task</a>
+            <a class="button button-secondary" href="create_task.php?from=my_tasks">Post Task</a>
         </div>
     </div>
 
@@ -40,7 +40,7 @@ require __DIR__ . "/../partials/header.php";
                 <?php foreach ($tasks as $task): ?>
                     <tr>
                         <td>
-                            <a href="task.php?id=<?= (int) $task["id"] ?>">
+                            <a href="task.php?id=<?= (int) $task["id"] ?>&amp;from=my_tasks">
                                 <?= htmlspecialchars($task["title"], ENT_QUOTES, "UTF-8") ?>
                             </a>
                         </td>
@@ -59,8 +59,8 @@ require __DIR__ . "/../partials/header.php";
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="edit_task.php?id=<?= (int) $task["id"] ?>">Edit</a> |
-                            <a href="delete_task.php?id=<?= (int) $task["id"] ?>">Delete</a>
+                            <a href="edit_task.php?id=<?= (int) $task["id"] ?>&amp;from=my_tasks">Edit</a> |
+                            <a href="delete_task.php?id=<?= (int) $task["id"] ?>&amp;from=my_tasks">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
